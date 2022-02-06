@@ -115,3 +115,8 @@ function Article() {
 export default Article;
 
 
+-------fetch the data at the time of request  - getServerSideProps() -----------
+we can use getServerSideProps() to dynamically generate the paths with all of the ata for eaach article only at the time of request.
+These getServerSideProps() and getStaticProps() can get passed in a context, and that allows us actually get the id of whatever is in the URL.
+like: 
+`https://jsonplaceholder.typicode.com/posts${context.params.id}`
