@@ -1,6 +1,7 @@
 import headerStyles from "../styles/Header.module.css";
 
 export default function Header() {
+  const x = 2;
   return (
     <div>
       <h1 className="title">
@@ -9,7 +10,7 @@ export default function Header() {
       <style jsx>
         {`
           .title {
-            color: red;
+            color: ${x > 3 ? "red" : "green"};
           }
         `}
       </style>
