@@ -26,3 +26,45 @@ the Next is very good for SEO(search engine) crawlers, because the app with Next
 
 **  import Link from "next/link";
 //takes href='/' prop where you show route path for the page you want to link.
+
+** Conditional style with JSX : 
+export default function Header() {
+  const x = 2;
+   return(
+     ...
+     <div className='title'>...</div>
+      <style jsx>
+        {`
+          .title {
+            color: ${x > 3 ? "red" : "green"};
+          }
+        `}
+      </style>
+      ...
+   );
+
+**  To add a lang attribute to HTML tag, we can create a custom document.
+A custom Document can update the <html> and <body> tags used to render a Page. This file is only rendered on the server, so event handlers like onClick cannot be used in _document.
+
+To override the default Document, create the file pages/_document.js as shown below:
+
+import { Html, Head, Main, NextScript } from 'next/document'   /import 
+
+
+copy and pass below code to the _document.js 
+
+export default function Document() {
+  return (
+    <Html>
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
+}
+
+then, can add <Html lang="en"> like so, so you can pass attributes in as props to html if you need to. BUT better adding via  <meta> tag within the <Head> component in index.js.
+example:
+<meta name="keywords" content="web development, programming " />
