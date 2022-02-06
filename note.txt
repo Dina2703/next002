@@ -20,4 +20,9 @@ RECOMMENDED to use uppercase for components name file, for pages lowercase name 
 In the Next the cool thing is you don't need a 3-party router , and define routes. You simple put your pages inside the 'pages' folder.
 the Next is very good for SEO(search engine) crawlers, because the app with Next will display every element with its content in the source code, which with React created app you are not gonna see the source code, there is only one, element with 'root' id.
 
-import styles from '../styles/Layout.modules.css'     // to apply the stylesheet for specific component import it.
+**  import styles from '../styles/Layout.modules.css'     
+// to apply the stylesheet for specific component import it.
+
+
+**  import Link from "next/link";
+//takes href='/' prop where you show route path for the page you want to link.
