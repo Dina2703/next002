@@ -102,3 +102,16 @@ export default function Home({ articles }) {...}
 
 **   <Link href="/article/[id]" as={`/article/${article.id}`}>  we used in the <ArticleItem> component to set the link fro each individual id path by the id of item
 this '&rarr;' elements to insert -> the arrow faced to the right, it's inside the <ArticleItem>
+
+** How to display the id number as <ArticleItem> content.
+example: 
+import { useRouter } from "next/router";
+
+function Article() {
+  const router = useRouter();
+  const { id } = router.query;
+  return <div>This is an article {id}</div>;
+}
+export default Article;
+
+
