@@ -99,3 +99,6 @@ export const getStaticProps = async () => {
 
 then pass the props to the component and use it, like: 
 export default function Home({ articles }) {...}
+
+**   <Link href="/article/[id]" as={`/article/${article.id}`}>  we used in the <ArticleItem> component to set the link fro each individual id path by the id of item
+this '&rarr;' elements to insert -> the arrow faced to the right, it's inside the <ArticleItem>

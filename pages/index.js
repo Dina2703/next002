@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { ArticleList } from "../components/ArticleList";
 
 export default function Home({ articles }) {
   console.log(articles);
@@ -8,8 +9,7 @@ export default function Home({ articles }) {
         <title>WebDev News</title>
         <meta name="keywords" content="web development, programming " />
       </Head>
-
-      <h1>Hello</h1>
+      <ArticleList articles={articles} />
     </div>
   );
 }
