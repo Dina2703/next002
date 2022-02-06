@@ -68,3 +68,34 @@ export default function Document() {
 then, can add <Html lang="en"> like so, so you can pass attributes in as props to html if you need to. BUT better adding via  <meta> tag within the <Head> component in index.js.
 example:
 <meta name="keywords" content="web development, programming " />
+
+_________-Data Fetching_____________
+there are some special functions that we can use to fetch data and then pass it into our page as props. We will work on index.js our home page for that, since it's the root component. we need to add these functions above or below the component.
+
+### There are 3 separate methods we can use to fetch data:
+
+1. getStaticProps()   which is going to allow us to fetch it build-time;
+2. getServerSideProps()  where we can fetch the data on every request, which is little slower;
+3. getStaticPaths()   to dynamically generate path pased on the data we're fetching.
+
+we gonna use getStaticProps().
+** the one way to fetch API from a 3-d party api, called Jsonplaceholder.
+** the second way fetch API fom local, create own api routes in the api file.
+
+-------fetching data from Jsonplaceholder-----------
+https://jsonplaceholder.typicode.com/posts_limit=6 
+'_limit=6' -- this things at the end of the endpoint is for defining the limit for the blogs number, we need only 6 blogs
+the cool thing how  getStaticProps() works, we can return an object with props which is an object and then whatever we want to pass in  as props, in our case it's articleswe fetch.
+like: 
+export const getStaticProps = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=6");
+  const articles = await res.json();
+  return {
+    props: {
+      articles,
+    },
+  };
+};
+
+then pass the props to the component and use it, like: 
+export default function Home({ articles }) {...}
