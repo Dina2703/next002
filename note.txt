@@ -1,0 +1,23 @@
+npm run dev      //runs the app on localhost 3000
+
+* public -- folder (for images and stylesheet, etc) is your static folder, means anything you put here  is going to be directly accesible from the browser.
+
+* styles -- there is a so many different ways to write CSS in Next.
+  -- global.scc   - for entire app. IMPORTANT!!! You CAN'T import global stylesheet directly into components, only with .module.css extention css files.
+  --Home.modules.css  -- this CSS rules applies only to the Home page.
+  ** That's the recommended way, to have a specific CSS file for your different components or pages, and import them into the page belongs the CSS.
+
+* index.js   -- inside the 'pages' folder is our Home page.
+import Head from "next/head";   // this is usaed dor custom titles or meta tags, keywords, descriptions things like that.
+
+*  -app.js    -- this is the file where all you pages components wrapped. And where you have imported global styles. Here you can import and use Layout, Navbar, Footer components, that you want to have for every page.and these components have tpo wrap children/ or page components(as the about, contant pages)
+
+for all your components that are not pages(like Layout, Footer, Navbar ect), you can create a folder named 'components'
+inside the root project folder.
+
+RECOMMENDED to use uppercase for components name file, for pages lowercase name file.
+
+In the Next the cool thing is you don't need a 3-party router , and define routes. You simple put your pages inside the 'pages' folder.
+the Next is very good for SEO(search engine) crawlers, because the app with Next will display every element with its content in the source code, which with React created app you are not gonna see the source code, there is only one, element with 'root' id.
+
+import styles from '../styles/Layout.modules.css'     // to apply the stylesheet for specific component import it.
