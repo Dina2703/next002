@@ -216,16 +216,35 @@ do some changes  to the getStaticPaths() & getStaticProps(), so they can fetch f
 import { server } from "../config";
 8) change the fetch() for getStaticProps() from --->
 fetch(
-    `https://jsonplaceholder.typicode.com/posts/${context.params.id}`
+   ...`https://jsonplaceholder.typicode.com/posts/${context.params.id}`
   )
 to this ---->
-fetch(`${server}api/articles/${context.params.id}`)  
+ const res = await fetch(`${server}/api/articles/${context.params.id}`);
 9)change the fetch() for getStaticPaths() from --->
-fetch(`https://jsonplaceholder.typicode.com/posts/`);
+...fetch(`https://jsonplaceholder.typicode.com/posts/`);
 to this   --->
-fetch(`${server}api/articles/`);
+ const res = await fetch(`${server}/api/articles`);
 Now all of our content have been fetching from our API.
 that's it here..
 
+---------Custom META--------
+if we want to have a custom meta tags and stuff like that, we have import 'Head' on every page OR we can have a default meta component to put in our layout(or you can use 3-d paty package like 'next-seo'). 
+1) create a Meta.js in the 'components' folder, inside import 'Head' from 'next/head'
+2)We want the Meta funtion will take some  params, like  -->
+function Meta({title, keywords, desciption}){...}
+3) the function returns a <Head> and add some default props to it. see Meta.js for example.
+4) lets bring it inside our Layout.js and we wanna put it right above our <Nav />
+5) then, in our home page delete the <Head>, now its from comes the <Layout> component.
+6) same thing in about page, delete <Head>
+Now on every page we have the default title.
+title: "WebDev Newz",
+7) And if we want to different title for page, then we can import <Meta> component to that page file, and put it inside return and pass in the title and set it to your title name for this page, same with other two props(description & keywords) expamle. --->
+<Meta title='About'/>
+now you'll see different titles for the home page and about page, even though it's in Layout it's not gonna repeat twice, can look dev toll for the elements structure, there is  only one meta tag. The meta data comes from LAyout, only if you don't pass any other values for these three props.
+8)  If we want to article title for a single article have as the page title. 
+---go to the index.js inside [id] folder. import <Meta>.
+then, add inside the return --->
+<Meta title={article.title} description={article.excerpt} />
 
-
+now we have our dynamic title and desciption content for each article. WHICH IS GOOD FOR SEO :)
+THAT'S IT.

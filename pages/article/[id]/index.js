@@ -1,6 +1,7 @@
-import { server } from "../config";
+import { server } from "../../../config";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Meta from "../../../components/Meta";
 
 function article({ article }) {
   // const router = useRouter();
@@ -8,7 +9,8 @@ function article({ article }) {
   // console.log(article);
   return (
     <>
-      <h1>{article.id}</h1>
+      <Meta title={article.title} description={article.excerpt} />
+      <h1>{article.title}</h1>
       <p>{article.body}</p>
       <br />
       <Link href="/">Go Back</Link>
@@ -17,7 +19,7 @@ function article({ article }) {
 }
 
 export const getStaticProps = async (context) => {
-  const res = await fetch(`${server}api/articles/${context.params.id}`);
+  const res = await fetch(`${server}/api/articles/${context.params.id}`);
   const article = await res.json();
 
   return {
@@ -28,7 +30,7 @@ export const getStaticProps = async (context) => {
 };
 
 export const getStaticPaths = async () => {
-  const res = await fetch(`${server}api/articles/`);
+  const res = await fetch(`${server}/api/articles`);
   const articles = await res.json();
   const ids = articles.map((article) => article.id);
   const paths = ids.map((id) => ({ params: { id: id.toString() } }));
