@@ -155,3 +155,40 @@ serve -s out -p 8000
 now it should be serving our static website on the port we defined.
 Now we have our static website in folder 'out', and we delete everything except this 'out' folder, the website still gonna work. And you can see how fast you can open pages or articles.
 If you deploy to a server, this 'out' folder gonna be ignored, this file is in the list of '.gitignore' file, you can see it there. And the website can work withour the static website, means if you dlete this 'out' folder, you still can deploy your app, and everything gonna work fine.
+
+
+---------API ROUTES-----------------
+in 'api' folder we have the 'hello.js' file, where the a function that takes in a request and response, and we can response with a sepcific statuc code and we can response with a specific data  -->>
+export default function handler(req, res) {
+  res.status(200).json({ name: 'John Doe' })
+}
+if you ever worked with express this is gonna look really familiar.
+Now, we can delete this 'hello.js' file, and create our own folder 'articles' inside the api folder, and create 'index.js' file inside 'articles'.
+For every response, or every function we gonna have separate file, in this project we gonna have 2 , one to get all articles and one to get a single article. So far as where the data comes from, that could be from anywhere(expamle from Postman) and you can make database calls in here.  For now we gonna use some JS file data 'data.js', which we will use for getting data.
+** START
+* To get all of our articles.
+1) import {articles} from '../../../data'    //import the data from the data.js
+2) to serve the 'articles' from our api.
+export default function handler(req, res) {
+  res.status(200).json(articles)
+}
+Now when you carete something inside this 'api' folder, it gonna be accesible automatically from api/articles (since we called our resource 'articles' ), you see you the data on this path, we can then fetch and do what we want with. Now this data comes from a local file, but it could be from anywhere. 
+
+
+* To get a sinlge article.
+create another file inside this 'api/articles' called [id].js
+1) we can copy the 'import' from the index.js and pass them into [id].js, beacuse we're using the same data. We want to be able to go to localhost 'api/articles/id' and get the data for tha specific id. And the way we can access that with request. Here we using destructure it since that's the only thing we're using up here.
+---> {query: {id}}
+How we have access to the id variable.
+2) we want filder aout that specific article that we want by that id --->
+const filtered = articles.filter((article) => article.id === id);
+3) the we check if the filtered.id is greater that 0,  then send res.statuc with statuc of OK. and pass the json with filtered array and specify 0 index for the first item in this array., like --> 
+ if(filtered.length > 0 ) {
+    res.statuc(200).json(filtered[0])
+  }
+and for else pass the res.status(404) and the json with message, ----> 
+else {
+    res.status(404).json({ message: `The article with ${id} is not found` });
+    Now we got the info for a single article.
+    That's it here.
+Now we can use it in our application
