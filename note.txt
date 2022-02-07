@@ -120,3 +120,22 @@ we can use getServerSideProps() to dynamically generate the paths with all of th
 These getServerSideProps() and getStaticProps() can get passed in a context, and that allows us actually get the id of whatever is in the URL.
 like: 
 `https://jsonplaceholder.typicode.com/posts${context.params.id}`
+that's it !!!!!!!!
+
+---------- getStaticPaths & getStaticProps (Optional version ------------
+You can use combination of to getStaticPaths & getStaticProps generate the pynamic the path with the data 
+When you change getServerSideProps async() fetch function to getStaticProps(), you will get error, that says getStaticPaths is required for dynamic SSG...(SSG for Static Side Generated)
+Doing it this way gonna make it much faster, because it fecth at build-time and you can use it in a static website.
+1) change getServerSideProps () to getStaticProps()
+2) create a nd export const getStaticPaths() async fetch function to get collection of articles.
+and : return {paths: {params: {id: '1', id: '2'}}}, for that we can write two lines of code, like: 
+const ids = articles.map(article => aricle.id);  to get the array of ids, then   --->
+const paths = ids.map(id => ({params: {id: id.toString()}}))
+<----- tu turn the ids to string. and return the 'paths'.
+and in return add 'fallback: false' which means if we go something that you know doesn't exist in the data it's going to return 404-page, 
+return {
+    paths,
+    fallback: false 
+}
+that's it!!!
+now when you click on article, it's gonna show the each individial article, it's path in the URL bar, and if you manually add the higher number that 6(since we defined limit number of articles to 6 and you see only 6 article displayed), however  if we get the article for the path 'article/20', for example if you set to 20. What happened is it generated all the paths for all the articles at build-time. 
