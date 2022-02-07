@@ -122,8 +122,8 @@ like:
 `https://jsonplaceholder.typicode.com/posts${context.params.id}`
 that's it !!!!!!!!
 
----------- getStaticPaths & getStaticProps (Optional version ------------
-You can use combination of to getStaticPaths & getStaticProps generate the pynamic the path with the data 
+---------- getStaticPaths & getStaticProps (The best practice) ------------
+You can use combination of to getStaticPaths & getStaticProps generate the dynamic the path with the data 
 When you change getServerSideProps async() fetch function to getStaticProps(), you will get error, that says getStaticPaths is required for dynamic SSG...(SSG for Static Side Generated)
 Doing it this way gonna make it much faster, because it fecth at build-time and you can use it in a static website.
 1) change getServerSideProps () to getStaticProps()
@@ -139,3 +139,19 @@ return {
 }
 that's it!!!
 now when you click on article, it's gonna show the each individial article, it's path in the URL bar, and if you manually add the higher number that 6(since we defined limit number of articles to 6 and you see only 6 article displayed), however  if we get the article for the path 'article/20', for example if you set to 20. What happened is it generated all the paths for all the articles at build-time. 
+
+-----------Export a Static Website------
+Now we gonna  generate a static website using what we've created up here.
+1) got ot the package.json file and change "build": "next build" to "build": "next build && next export". We do that, because when we run 'next build' it builds for production we deploy everything, however when we do 'next export' it goes into a folder called 'out' and it is a static website.
+2) then, stop the server and run 'npm run build'. It's gonna build for production and it's gonna also export a static website. And you can seee the new folder 'out'.
+Now we could upload all of this to any host(to Versel, example), that would know how to handle node.js.
+
+---OUT folder or a Static website-----
+The 'out' folder, which is a completele static website. You wan to run this on some kinda server, cdn or whatever. We gonna use the 'serve' package.
+to install it  --> 
+npm i -g serve
+to run the 'serve', run command:
+serve -s out -p 8000
+now it should be serving our static website on the port we defined.
+Now we have our static website in folder 'out', and we delete everything except this 'out' folder, the website still gonna work. And you can see how fast you can open pages or articles.
+If you deploy to a server, this 'out' folder gonna be ignored, this file is in the list of '.gitignore' file, you can see it there. And the website can work withour the static website, means if you dlete this 'out' folder, you still can deploy your app, and everything gonna work fine.
