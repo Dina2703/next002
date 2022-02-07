@@ -192,3 +192,40 @@ else {
     Now we got the info for a single article.
     That's it here.
 Now we can use it in our application
+
+
+------------Use API data for our APPlication-------------
+in index.js for our application, which is in the pages folder.
+do some changes  to the getStaticProps() async function,  so it can fetch from our API.
+Pass copy and change it.
+1) we need to use absolute URL(with http or https), to fetch the data from our API, even though it's on the same project root folder.
+2) create 'config' folder in the project  root folder and create 'index.js' in there . 
+----> 
+const dev = process.env.NODE_ENV !== "production";
+
+export const server = dev ? "http://localhost:3000" : "https://yourwebsite.com";
+
+add the code above. 
+3) Nowe back in index.js (for app page) import this 'server', that we just created in config.
+import { server } from "../config";
+4) instead of fetching the data from the jsonplaceholder, we can fetch the data through our API,by adding 'server' variable, where we store the absolute path.
+5) if you go to the website you can see that the content(data) on the home page(or index page) comes from our API, but if you click on of the articles, they still fetching the content from 'jsonplaceholder', so we need to change it.
+6) For that, go to the index.js inside 'articles/[id]' and 
+do some changes  to the getStaticPaths() & getStaticProps(), so they can fetch from our API.
+7) import 'server'
+import { server } from "../config";
+8) change the fetch() for getStaticProps() from --->
+fetch(
+    `https://jsonplaceholder.typicode.com/posts/${context.params.id}`
+  )
+to this ---->
+fetch(`${server}api/articles/${context.params.id}`)  
+9)change the fetch() for getStaticPaths() from --->
+fetch(`https://jsonplaceholder.typicode.com/posts/`);
+to this   --->
+fetch(`${server}api/articles/`);
+Now all of our content have been fetching from our API.
+that's it here..
+
+
+
