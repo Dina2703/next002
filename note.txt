@@ -3,14 +3,14 @@ npm run dev      //runs the app on localhost 3000
 * public -- folder (for images and stylesheet, etc) is your static folder, means anything you put here  is going to be directly accesible from the browser.
 
 * styles -- there is a so many different ways to write CSS in Next.
-  -- global.scc   - for entire app. IMPORTANT!!! You CAN'T import global stylesheet directly into components, only with .module.css extention css files.
+  -- global.css   - for entire app. IMPORTANT!!! You CAN'T import global stylesheet directly into components, only with .module.css extention css files.
   --Home.modules.css  -- this CSS rules applies only to the Home page.
   ** That's the recommended way, to have a specific CSS file for your different components or pages, and import them into the page belongs the CSS.
 
 * index.js   -- inside the 'pages' folder is our Home page.
-import Head from "next/head";   // this is usaed dor custom titles or meta tags, keywords, descriptions things like that.
+import Head from "next/head";   // this is used for custom titles or meta tags, keywords, descriptions things like that.
 
-*  -app.js    -- this is the file where all you pages components wrapped. And where you have imported global styles. Here you can import and use Layout, Navbar, Footer components, that you want to have for every page.and these components have tpo wrap children/ or page components(as the about, contant pages)
+*  _app.js    -- this is the file where all you pages components wrapped. And where you have imported global styles. Here you can import and use Layout, Navbar, Footer components, that you want to have for every page.and these components have tpo wrap children/ or page components(as the about, contant pages)
 
 for all your components that are not pages(like Layout, Footer, Navbar ect), you can create a folder named 'components'
 inside the root project folder.
@@ -65,7 +65,7 @@ export default function Document() {
   )
 }
 
-then, can add <Html lang="en"> like so, so you can pass attributes in as props to html if you need to. BUT better adding via  <meta> tag within the <Head> component in index.js.
+then, can add <Html lang="en"> like so, so you can pass attributes into as props to html if you need to. BUT better adding via  <meta> tag within the <Head> component in index.js.
 example:
 <meta name="keywords" content="web development, programming " />
 
@@ -80,7 +80,7 @@ there are some special functions that we can use to fetch data and then pass it 
 
 we gonna use getStaticProps().
 ** the one way to fetch API from a 3-d party api, called Jsonplaceholder.
-** the second way fetch API fom local, create own api routes in the api file.
+** the second way fetch API from local, create own api routes in the api file.
 
 -------fetching data from Jsonplaceholder-----------
 https://jsonplaceholder.typicode.com/posts_limit=6 
@@ -100,7 +100,7 @@ export const getStaticProps = async () => {
 then pass the props to the component and use it, like: 
 export default function Home({ articles }) {...}
 
-**   <Link href="/article/[id]" as={`/article/${article.id}`}>  we used in the <ArticleItem> component to set the link fro each individual id path by the id of item
+**   <Link href="/article/[id]" as={`/article/${article.id}`}>  we used in the <ArticleItem> component to set the link for each individual id path by the id of item
 this '&rarr;' elements to insert -> the arrow faced to the right, it's inside the <ArticleItem>
 
 ** How to display the id number as <ArticleItem> content.
@@ -158,7 +158,7 @@ If you deploy to a server, this 'out' folder gonna be ignored, this file is in t
 
 
 ---------API ROUTES-----------------
-in 'api' folder we have the 'hello.js' file, where the a function that takes in a request and response, and we can response with a sepcific statuc code and we can response with a specific data  -->>
+in 'api' folder we have the 'hello.js' file, where the a function that takes in a request and response, and we can response with a spesific status code and we can response with a specific data  -->>
 export default function handler(req, res) {
   res.status(200).json({ name: 'John Doe' })
 }
@@ -172,15 +172,15 @@ For every response, or every function we gonna have separate file, in this proje
 export default function handler(req, res) {
   res.status(200).json(articles)
 }
-Now when you carete something inside this 'api' folder, it gonna be accesible automatically from api/articles (since we called our resource 'articles' ), you see you the data on this path, we can then fetch and do what we want with. Now this data comes from a local file, but it could be from anywhere. 
+Now when you create something inside this 'api' folder, it gonna be accessible automatically from api/articles (since we called our resource 'articles' ), you see you the data on this path, we can then fetch and do what we want with. Now this data comes from a local file, but it could be from anywhere. 
 
 
-* To get a sinlge article.
+* To get a single article.
 create another file inside this 'api/articles' called [id].js
 1) we can copy the 'import' from the index.js and pass them into [id].js, beacuse we're using the same data. We want to be able to go to localhost 'api/articles/id' and get the data for tha specific id. And the way we can access that with request. Here we using destructure it since that's the only thing we're using up here.
 ---> {query: {id}}
 How we have access to the id variable.
-2) we want filder aout that specific article that we want by that id --->
+2) we want filter about that specific article that we want by that id --->
 const filtered = articles.filter((article) => article.id === id);
 3) the we check if the filtered.id is greater that 0,  then send res.statuc with statuc of OK. and pass the json with filtered array and specify 0 index for the first item in this array., like --> 
  if(filtered.length > 0 ) {
